@@ -1,0 +1,54 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["airbnb", "plugin:react/recommended", "prettier"],
+  "ignorePatterns": ["node_modules", "dist"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
+  },
+  "globals": {
+    "React": true,
+    "JSX": true
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    // Existing rules
+    "comma-dangle": "off", // https://eslint.org/docs/rules/comma-dangle
+    "function-paren-newline": "off", // https://eslint.org/docs/rules/function-paren-newline
+    "global-require": "off", // https://eslint.org/docs/rules/global-require
+    "import/no-dynamic-require": "off", // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-dynamic-require.md
+    "no-inner-declarations": "off", // https://eslint.org/docs/rules/no-inner-declarations
+    "no-use-before-define": "off",
+    // New rules
+    "class-methods-use-this": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "react/jsx-filename-extension": [0, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-use-before-define": ["error"]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  }
+}
