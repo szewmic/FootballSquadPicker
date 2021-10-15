@@ -61,14 +61,10 @@ const Grid = (props: GridProps) => {
 
   return (
     <>
-      <div>
-        <div className='TableContainer'>
-          <div>
-            <table ref={ref} aria-label='simple table'>
-              <tbody>{generateTable()}</tbody>
-            </table>
-          </div>
-        </div>
+      <div id='table-wrapper' className='TableContainer'>
+        <table ref={ref} aria-label='simple table'>
+          <tbody>{generateTable()}</tbody>
+        </table>
       </div>
     </>
   );
