@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 import { useSwappableCells } from "./hooks/useSwappableCells";
 import {
   displayCellValue,
@@ -8,10 +9,23 @@ import {
 } from "./utils";
 import "./style.css";
 
+interface StyledGridProps {
+  readonly width?: string | number;
+  readonly height?: string | number;
+}
+
+const StyledGrid = styled.div<StyledGridProps>`
+  id: table-wrapper;
+  width: ${(props) => `${props.width}px` || "100%"};
+  height: ${(props) => `${props.height}px` || "100%"};
+`;
+
 interface GridProps {
-  readonly gridData?: Array<Array<object>>;
-  readonly swapCellsEnabled?: boolean;
   readonly displayExpr?: string;
+  readonly gridData?: Array<Array<object>>;
+  readonly height?: number | string;
+  readonly width?: number | string;
+  readonly swapCellsEnabled?: boolean;
   readonly cellRender?: (cellData: object) => JSX.Element;
 }
 
@@ -37,6 +51,14 @@ const Grid = (props: GridProps) => {
 
   const generateTable = () => {
     const table = [];
+
+    const cellWidth = props.width
+      ? (props.width as number) / columnsValue
+      : "auto";
+    const cellHeight = props.height
+      ? (props.height as number) / rowValue
+      : "auto";
+
     for (let i = 0; i < rowValue; i += 1) {
       const children = [];
       for (let j = 0; j < columnsValue; j += 1) {
@@ -45,6 +67,10 @@ const Grid = (props: GridProps) => {
           <td
             key={key}
             {...(swapCellsEnabled && getSwappableCellAttributes(key))}
+            style={{
+              width: cellWidth,
+              height: cellHeight,
+            }}
           >
             <div id={getUniqueKeyFromArrayIndex(i, j)}>
               {cellRender
@@ -60,13 +86,11 @@ const Grid = (props: GridProps) => {
   };
 
   return (
-    <>
-      <div id='table-wrapper' className='TableContainer'>
-        <table ref={ref} aria-label='simple table'>
-          <tbody>{generateTable()}</tbody>
-        </table>
-      </div>
-    </>
+    <StyledGrid {...props}>
+      <table ref={ref} aria-label='simple table'>
+        <tbody>{generateTable()}</tbody>
+      </table>
+    </StyledGrid>
   );
 };
 
@@ -76,6 +100,8 @@ Grid.defaultProps = {
     ["3", "4", "6"],
   ],
   swapCellsEnabled: true,
+  height: "100%",
+  width: "100%",
 };
 
 export default Grid;

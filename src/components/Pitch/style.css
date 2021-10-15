@@ -1,11 +1,15 @@
-table th,table td{
-	height: 30px;
-	width: 200px;
-	
+#pitch {
+  display: block;
+  position: absolute;
+  width: 1200px;
+  height: 800px;
+  background-image: url("/public/fieldbg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
-table span{
-	display:block;
-	background-color: #09C;
-	height: 100%;
-	width: 100%;
+
+#pitch-grid {
+  position: relative;
+  left: 170px;
+  top: 50px;
 }
