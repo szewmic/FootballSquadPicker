@@ -1,21 +1,27 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import { useSwappableCells } from "./hooks/useSwappableCells";
-import { findHighestCol, getUniqueKeyFromArrayIndex } from "./utils";
+import {
+  displayCellValue,
+  findHighestCol,
+  getUniqueKeyFromArrayIndex,
+} from "./utils";
 import "./style.css";
 
 interface GridProps {
-  readonly gridData?: Array<Array<string | number | Date>>;
+  readonly gridData?: Array<Array<object>>;
   readonly swapCellsEnabled?: boolean;
+  readonly displayExpr?: string;
+  readonly cellRender?: (cellData: object) => JSX.Element;
 }
 
 const Grid = (props: GridProps) => {
-  const { gridData, swapCellsEnabled } = props;
+  const { displayExpr, gridData, swapCellsEnabled, cellRender } = props;
 
   //* State */
   const [rowValue] = useState(gridData ? gridData.length : 0);
   const [columnsValue] = useState(gridData ? findHighestCol(gridData) : 0);
-  const [tableArrayData, setTableArrayData] = useState<any[][]>(
+  const [tableArrayData, setTableArrayData] = useState<object[][]>(
     gridData || [[]]
   );
 
@@ -41,7 +47,9 @@ const Grid = (props: GridProps) => {
             {...(swapCellsEnabled && getSwappableCellAttributes(key))}
           >
             <div id={getUniqueKeyFromArrayIndex(i, j)}>
-              {tableArrayData[i][j]}
+              {cellRender
+                ? cellRender(tableArrayData[i][j])
+                : displayCellValue(tableArrayData[i][j], displayExpr)}
             </div>
           </td>
         );

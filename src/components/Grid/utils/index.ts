@@ -5,7 +5,20 @@ const getUniqueKeyFromArrayIndex = (rowNum: number, columnNum: number) =>
 const findHighestCol = (table: any[][]) =>
   table.map((cols) => cols.length).sort()[table.length - 1];
 
-export {
-    getUniqueKeyFromArrayIndex,
-    findHighestCol
-}
+const displayCellValue = (data?: any, expr?: string) => {
+  if (!data) {
+    return "";
+  }
+
+  if (expr && data[expr]) {
+    return data[expr];
+  }
+
+  if (typeof data !== "string" || typeof data !== "number") {
+    throw Error("Invalid cell value");
+  }
+
+  return data;
+};
+
+export { displayCellValue, getUniqueKeyFromArrayIndex, findHighestCol };

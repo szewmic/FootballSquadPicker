@@ -4,12 +4,12 @@ import { RowCol } from "../../../models/RowCol";
 const SWAP_CELL_SRC_KEY = "swapCellKey";
 
 interface SwappedData {
-  oldData: Array<Array<string | number | Date>>;
-  newData: Array<Array<string | number | Date>>;
+  oldData: Array<Array<object>>;
+  newData: Array<Array<object>>;
 }
 
 interface SwappableCellsConfig {
-  readonly data: Array<Array<string | number | Date>>;
+  readonly data: Array<Array<object>>;
   readonly onSwap?: (data: SwappedData) => void;
 }
 
@@ -28,7 +28,7 @@ export const useSwappableCells = (config: SwappableCellsConfig) => {
       const srcCellRowCol = new RowCol(srcCellId);
       const destCellRowCol = new RowCol(id);
 
-      const newData: Array<Array<string | number | Date>> = [...data];
+      const newData: Array<Array<object>> = [...data];
       const src = data[srcCellRowCol.Row][srcCellRowCol.Col];
       const dest = data[destCellRowCol.Row][destCellRowCol.Col];
 
@@ -41,20 +41,12 @@ export const useSwappableCells = (config: SwappableCellsConfig) => {
   };
 
   const getSwappableCellAttributes = (id: string) => ({
-        draggable: true,
-        onDragStart: (e: any) => (
-            onDragStart(e, id)
-        ),
-        onDragEnd: (e: any) => (
-            onDragEnd(e, id)
-        ),
-        onDragOver: (e: any) => (
-            onDragEnd(e, id)
-        ),
-        onDrop: (e: any) => (
-            onDragEnd(e, id)
-        )
-      });
+    draggable: true,
+    onDragStart: (e: any) => onDragStart(e, id),
+    onDragEnd: (e: any) => onDragEnd(e, id),
+    onDragOver: (e: any) => onDragEnd(e, id),
+    onDrop: (e: any) => onDragEnd(e, id),
+  });
 
   return {
     getSwappableCellAttributes,
