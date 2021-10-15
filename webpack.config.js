@@ -51,7 +51,8 @@ module.exports = {
             template: "./src/index.html",
         }),
         new ESLintWebpackPlugin({
-            extensions: ["js", "jsx", "ts", "tsx"]
+            extensions: ["js", "jsx", "ts", "tsx"],
+            quiet: true
         }),
         isDevelopment && new webpack.HotModuleReplacementPlugin(),
         isDevelopment && new ReactRefreshWebpackPlugin(),
