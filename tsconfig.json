@@ -3,7 +3,8 @@
         "baseUrl": "./src",
         "target": "ES5",
         "paths": {
-            "types/*": ["./types/*"]
+            "types/*": ["./types/*"],
+            "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
         },
         // https://www.sitepoint.com/react-with-typescript-best-practices/
         "allowJs": true, // Allow JavaScript files to be compiled

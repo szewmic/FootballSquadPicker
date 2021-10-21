@@ -38,6 +38,9 @@ module.exports = {
     },
     resolve: {
         extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
+        alias: {
+            '@mui/styled-engine': '@mui/styled-engine-sc'
+        }
     },
     output: {
         filename: 'bundle.[hash].js', // our output bundle,
